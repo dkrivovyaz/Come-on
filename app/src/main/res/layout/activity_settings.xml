@@ -1,8 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity">
+    android:orientation="vertical"
+    tools:context=".SettingsActivity"
+    android:paddingStart="@dimen/settings_padding_left"
+    android:paddingEnd="@dimen/settings_padding_right"
+    android:paddingLeft="@dimen/settings_padding_left"
+    android:paddingRight="@dimen/settings_padding_right">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_tab_height"
+        android:orientation="vertical"
+        android:onClick="onClickStartDaySetting">
+
+        <TextView
+            android:id="@+id/startDayText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/start_day_text"
+            android:textSize="@dimen/settings_tab_text_size" />
+
+        <TextView
+            android:id="@+id/startDayTime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end|center_vertical"
+            android:text="@string/start_day_time"
+            android:textSize="@dimen/settings_time_text_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_tab_height"
+        android:orientation="vertical"
+        android:onClick="onClickEndDaySetting">
+
+        <TextView
+            android:id="@+id/endDayText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/end_day_text"
+            android:textSize="@dimen/settings_tab_text_size" />
+
+        <TextView
+            android:id="@+id/endDayTime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end|center_vertical"
+            android:text="@string/end_day_time"
+            android:textSize="@dimen/settings_time_text_size" />
+    </RelativeLayout>
+</LinearLayout>
