@@ -12,30 +12,31 @@ import java.util.Set;
 class Tasks {
     private static final Tasks ourInstance = new Tasks();
     ArrayList<Task> allTasks;
-    SharedPreferences preferences;
+    private SharedPreferences preferences;
     public final String PREF_TAG = "tasks";
     public static  final String DELIMETER = "-";
-    static Tasks getInstance()
+    static Tasks getInstance(Context context)
     {
+        if(ourInstance.preferences == null){
+            ourInstance.preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            ourInstance.allTasks = new ArrayList<>();
+            ourInstance.refreshTasks();
+        }
         return ourInstance;
     }
 
     private Tasks() {
-        allTasks = new ArrayList<>();
     }
-    public void refreshTasks(Context context){
+    public void refreshTasks(){
         allTasks.clear();
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
         HashSet<String> stringTasks = new HashSet<>(preferences.getStringSet(PREF_TAG, new HashSet<String>()));
         for (String stringTask : stringTasks) {
             String [] piaces = stringTask.split(DELIMETER);
             allTasks.add(new Task(piaces[0], piaces[1], piaces[2], piaces[3]));
         }
     }
-    public void addTask(Task task, Context context){
-        refreshTasks(context);
+    public void addTask(Task task){
         allTasks.add(task);
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor;
         prefsEditor = preferences.edit();
         HashSet<String> stringSet = new HashSet<>();
@@ -45,14 +46,11 @@ class Tasks {
         prefsEditor.putStringSet(PREF_TAG, stringSet);
         prefsEditor.commit();
     }
-    public ArrayList<Task> getAllTasks(Context context){
-        refreshTasks(context);
+    public ArrayList<Task> getAllTasks(){
         return  allTasks;
     }
-    public void removeTask(int index, Context context){
-        refreshTasks(context);
+    public void removeTask(int index){
         allTasks.remove(index);
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor;
         prefsEditor = preferences.edit();
         HashSet<String> stringSet = new HashSet<>();
