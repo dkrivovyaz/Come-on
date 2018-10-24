@@ -2,6 +2,7 @@ package com.hornedheck.comeon;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.ArraySet;
 
 import java.util.ArrayList;
@@ -14,7 +15,8 @@ class Tasks {
     SharedPreferences preferences;
     public final String PREF_TAG = "tasks";
     public static  final String DELIMETER = "-";
-    static Tasks getInstance() {
+    static Tasks getInstance()
+    {
         return ourInstance;
     }
 
@@ -23,17 +25,17 @@ class Tasks {
     }
     public void refreshTasks(Context context){
         allTasks.clear();
-        preferences = context.getSharedPreferences(PREF_TAG,Context.MODE_PRIVATE);
-        HashSet<String> stringTasks = (HashSet)preferences.getStringSet(PREF_TAG, new HashSet<String>());
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        HashSet<String> stringTasks = new HashSet<>(preferences.getStringSet(PREF_TAG, new HashSet<String>()));
         for (String stringTask : stringTasks) {
             String [] piaces = stringTask.split(DELIMETER);
-            allTasks.add(new Task(piaces[0], piaces[1], piaces[2]));
+            allTasks.add(new Task(piaces[0], piaces[1], piaces[2], piaces[3]));
         }
     }
     public void addTask(Task task, Context context){
         refreshTasks(context);
         allTasks.add(task);
-        preferences = context.getSharedPreferences(PREF_TAG, Context.MODE_PRIVATE);
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor;
         prefsEditor = preferences.edit();
         HashSet<String> stringSet = new HashSet<>();
@@ -50,7 +52,7 @@ class Tasks {
     public void removeTask(int index, Context context){
         refreshTasks(context);
         allTasks.remove(index);
-        preferences = context.getSharedPreferences(PREF_TAG, Context.MODE_WORLD_READABLE);
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor prefsEditor;
         prefsEditor = preferences.edit();
         HashSet<String> stringSet = new HashSet<>();
