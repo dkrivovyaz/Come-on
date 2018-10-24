@@ -6,53 +6,60 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SettingsActivity"
-    android:paddingStart="@dimen/settings_padding_left"
-    android:paddingEnd="@dimen/settings_padding_right"
-    android:paddingLeft="@dimen/settings_padding_left"
-    android:paddingRight="@dimen/settings_padding_right">
+    android:paddingTop="@dimen/settings_padding_top">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_tab_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:onClick="onClickStartDaySetting">
+        android:onClick="onClickStartDaySetting"
+        android:layout_marginBottom="@dimen/settings_tabs_margin">
 
         <TextView
             android:id="@+id/startDayText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/settings_tabs_margin"
             android:text="@string/start_day_text"
             android:textSize="@dimen/settings_tab_text_size" />
 
         <TextView
             android:id="@+id/startDayTime"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="end|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/settings_tabs_margin"
             android:text="@string/start_day_time"
             android:textSize="@dimen/settings_time_text_size" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_tab_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:onClick="onClickEndDaySetting">
+        android:onClick="onClickEndDaySetting"
+        android:layout_marginTop="@dimen/settings_tabs_margin">
 
         <TextView
             android:id="@+id/endDayText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/settings_tabs_margin"
             android:text="@string/end_day_text"
             android:textSize="@dimen/settings_tab_text_size" />
 
         <TextView
             android:id="@+id/endDayTime"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="end|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/settings_tabs_margin"
             android:text="@string/end_day_time"
             android:textSize="@dimen/settings_time_text_size" />
     </RelativeLayout>
