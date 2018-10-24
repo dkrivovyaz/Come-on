@@ -1,7 +1,10 @@
 package com.hornedheck.comeon;
 
 import android.app.TimePickerDialog;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -13,6 +16,7 @@ import java.util.Calendar;
 public class SettingsActivity
   extends AppCompatActivity {
 
+
     TextView currentStartTime;
     TextView currentEndTime;
     Calendar time = Calendar.getInstance();
@@ -21,11 +25,20 @@ public class SettingsActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
-
-		//ToDo: две строки ниже должны брать значения из Preferences
-
 		currentStartTime = findViewById(R.id.startDayTime);
 		currentEndTime = findViewById(R.id.endDayTime);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Проверка наличия установок времени в preferences, в случае истинности вывод значений в Activity
+
+		if (preferences.contains("startTime")) {
+            String savedStartTime = preferences.getString("startTime", "");
+            currentStartTime.setText(savedStartTime);
+        }
+        if (preferences.contains("endTime")) {
+            String savedEndTime = preferences.getString("endTime", "");
+            currentEndTime.setText(savedEndTime);
+        }
 	}
 
 
@@ -49,19 +62,40 @@ public class SettingsActivity
 
     // Изменения TextView значений времени:
 
-    //ToDo: два метода ниже должны сохранять значение time.getTimeInMillis() в Preferences
-
     private void setInitialStartDayTime() {
+
+	    //считывание start time
+
         currentStartTime.setText(DateUtils.formatDateTime(this,
                 time.getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_TIME));
+
+        //сохранение start time в preferences
+
+        final String START_TIME = "startTime";
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Editor editor = preferences.edit();
+        editor.putString(START_TIME, String.valueOf(DateUtils.formatDateTime(this,time.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME)));
+        editor.apply();
     }
 
     private void setInitialEndDayTime() {
+
+	    //считывание end time
+
         currentEndTime.setText(DateUtils.formatDateTime(this,
                 time.getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_TIME));
+
+        //сохранение end time в preferences
+
+        final String END_TIME = "endTime";
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Editor editor = preferences.edit();
+        editor.putString(END_TIME, String.valueOf(DateUtils.formatDateTime(this,time.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME)));
+        editor.apply();
     }
+
 
 
     // Обработка выбора нового времени в TimePicker-диалоге:
